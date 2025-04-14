@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+
+
+    <form method="POST">
+        <div class="form-group p-4" style="border: 1px solid #ccc;">
+            <h3 class="border-bottom pb-3 mb-3 mt-2">حذف التدوينة</h3>
+        <h4 style="display: block; max-width: 100%; word-wrap: break-word;" class="pb-3 mb-3 mt-2">هل أنت متأكد من حذف "{{post.title}}" ؟</h4>
+        {% csrf_token %}
+        
+          
+        <input class="btn btn-danger mb-2 mt-2" type="submit" value="حذف">
+        <a class="btn btn-secondary mb-2 mt-2" href="{% url 'detail' post.id %}">تراجع</a>
+        </div>
+    </form>
+    
+
+
+{% endblock %}

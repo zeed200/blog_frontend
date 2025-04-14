@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+    <div style="margin-bottom: 35%;">
+    <h3 class="border-bottom pb-3 mb-3 mt-2">تم تسجيل الخروج</h3>
+      <a href="{% url 'login' %}">تسجيل الدخول مرة أخرى</a>
+    </div>
+
+    <script>
+      setTimeout(function() {
+          location.reload();
+      }, 2000);
+      
+      </script>
+
+{% endblock %}

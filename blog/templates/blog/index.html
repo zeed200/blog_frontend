@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+   <div class="alert alert-{{message.tags}}">
+    {{message}}
+   </div>
+{% endfor %}
+{% endif %}
+{% for post in posts %}
+<div class="post p-3 mb-3" style="box-sizing: border-box;">
+    <img class="img-fluid rounded-circle border m-2" src="{{post.profile}}" alt="صورة الناشر" style="width: 50px; height: 50px;">
+    <h2 style="display: inline-flex; margin-right: 2%; text-align: center;">{{post.author1}}</h2>
+    <span style="float: left;">تم النشر في {{post.post_date}}</span>
+    <h4 style="display: block; max-width: 100%; word-wrap: break-word;"><a href="{% url 'detail' post.id %}">{{post.title}}</a></h4>
+    <p style="display: block; max-width: 100%; word-wrap: break-word;">{{post.content|slice:'90'}}...</p>
+
+</div>
+{% endfor %}
+
+{% include 'blog/pagination.html' with page=posts %}
+
+{% endblock %}

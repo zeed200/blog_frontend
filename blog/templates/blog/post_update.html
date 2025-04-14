@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+
+    <h3 class="border-bottom pb-3 mb-3 mt-2">تعديل التدوينة</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group p-4" style="border: 1px solid #ccc;">
+          <div id="div_id_title" class="form-group"> <label for="id_title" class=" requiredField">العنوان<span class="asteriskField">*</span> </label> 
+            <div> <input value="{{post.title}}" type="text" name="title" class="textinput form-control" required id="id_title"> </div> 
+          </div>
+           <div id="div_id_content" class="form-group"> <label for="id_content" class=" requiredField"> نص التدوينة<span class="asteriskField">*</span> </label> 
+            <div> <textarea name="content" cols="40" rows="10" class="textarea form-control" required id="id_content">{{post.content}}</textarea> </div> 
+        </div>
+        <input class="btn btn-secondary mb-2 mt-3" style="display: block;" type="submit" value="تحديث">
+       
+        </div>
+    </form>
+    
+
+
+{% endblock %}

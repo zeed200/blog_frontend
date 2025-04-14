@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+    <h3 class="border-bottom pb-3 mb-3 mt-2">تدوينة جديدة</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group p-4" style="border: 1px solid #ccc;">
+          {{form|crispy}}
+        <input class="btn btn-secondary mb-2 mt-3" style="display: block;" type="submit" value="نشر">
+       
+        </div>
+    </form>
+    
+
+
+{% endblock %}

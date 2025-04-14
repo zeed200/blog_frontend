@@ -1,0 +1,149 @@
+{% load static %}
+{% load post_tag %}
+<!DOCTYPE html>
+
+<html lang="ar">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="{% static 'blog/css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+        <link rel="shortcut icon" href="{% static 'blog/image/2.ico' %}">
+        {% if title %}
+        <title>{{title}} |  Dev</title>
+        {% else %}
+        <title>Dev</title>
+        {% endif %}
+    </head>
+    <body>
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="{% url 'home' %}">
+                  <img src="../../static/blog/image/2.png" alt="" width="30px">
+                  Dev
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav">
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'home' %}">الرئيسيه<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item ">
+                      <a class="nav-link" href="{% url 'home' %}">
+                        المقالات
+                      </a>
+                  
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">من أنا</a>
+                    </li>
+                    
+                  </ul>
+
+                  {% if request.COOKIES.tok %}
+
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'new_post' %}">إنشاء تدوينة</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">الملف الشخصي</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">تسجيل خروج</a></li>
+                  </ul>
+
+                  {% else %}
+
+                  <ul class="navbar-nav mr-auto">
+                     <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">تسجيل الدخول</a></li>
+                     <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">إنشاء حساب</a></li>
+                  </ul>
+                  {% endif %}
+
+
+                  
+                </div>
+              </nav>            
+        </div>
+        <section>
+            <div class="container">
+               <div class="row mt-4">
+                   <div class="col-md-8">
+                    {% block content %}
+
+                    {% endblock %}
+                   </div>
+                   <div class="col-md-4">
+                    <div class="card">
+                        <h3 class="text-center bg-secondary text-light p-2"> أخر التدوينات</h3>
+                        <ul class="list-group-flush latest-post">
+                          {% latest_post as l_posts %}
+                          {% for post in l_posts %}
+                         
+                              <li class="list-group-item latest-post-item">
+                                 <a class="text-dark" href="{% url 'detail' post.id %}">{{post.title|slice:'45'}} ...</a> 
+                              </li>
+                          
+                          {% endfor %}
+                      </ul>
+                    </div>
+                   </div>
+               </div>
+            </div>
+        </section>
+
+        <footer class="bg-secondary">
+          <div class="container-fluid">
+            <div class="row">
+                <div class="col-md">
+                    <div class="card-group mt-3">
+                        <div class="card m-3">
+                            <h3 class="card-title text-center border-bottom p-2 m-1">من أنا</h3>
+                            <div class="card-body">
+                                <!-- <div class="text-center">
+                                    
+                                </div> -->
+                                
+أنا عبدالرحمن محمد،
+  <br>
+   مهندس برمجيات (Software Engineer) متخصص في تطوير الويب باستخدام:
+   <br>
+   Full Stack Python (Django / Django Rest Framework)
+   <br>
+   HTML, CSS, Bootstrap, JavaScript
+   <br>
+   أملك شغفًا كبيرًا بكل ما يتعلق بالتكنولوجيا والمعلومات، وأسعى دائمًا لاكتساب المهارات الجديدة ومواكبة تطورات المجال.
+   حاليًا أركز على تعلم React.js وأعمل على بناء مشاريع تطبيقية باستخدامها لتعزيز خبرتي في تطوير الواجهات الأمامية (Frontend Development).
+                            </div>
+                        </div>
+                        
+                        <div class="card m-3">
+                            <h3 class="card-title text-center border-bottom p-2 m-3">وسائل التواصل الأجتماعي</h3>
+                            <h2 class="card-body text-center">
+                             <a href=""> <i class="fab fa-facebook m-2"></i></a>
+                             <a href=""><i class="fab fa-twitter m-2"></i></a>
+                             <a href=""><i class="fab fa-telegram m-2"></i></a>
+                             <a href=""><i class="fab fa-linkedin m-2"></i></a>
+                            </h2>
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-md text-center">
+                    <small class="text-light">&copy;جميع الحقوق محفوظة</small>
+                </div>
+            </div>
+          </div>
+        </footer>
+        <script src="{% static 'blog/js/jquery-3.5.1.min.js' %}"></script>
+        <script src="{% static 'blog/js/popper.min.js' %}"></script>  
+        <script src="{% static 'blog/js/bootstrap.js' %}"></script>
+        <script src="{% static 'blog/js/all.min.js' %}"></script>
+        
+        <script>
+          
+        </script>
+
+    </body>
+</html>

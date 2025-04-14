@@ -1,0 +1,56 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<!-- {% load crispy_forms_tags %} -->
+
+
+    <h3 class="border-bottom pb-3 mb-3 mt-2">تعديل الملف الشخصي</h3>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="_method" value="PUT">
+        <div class="form-group p-4" style="border: 1px solid #ccc;">
+            <div class="text-center">
+            
+                <img id="preview" class="img-fluid rounded-circle border m-2" src="{{profile.profile}}" alt="صورة الملف الشخصي" style="  width: 70px; height: 70px;">
+                <br>
+                <label for="image" class="btn btn-outline-secondary mt-2">تغيير الصورة</label>
+                <input type="file" name="image" id="image" accept="image/*" style="display: none;">
+                <input type="hidden" name="base64" id="base64">
+            </div>
+            <div id="div_id_email" class="form-group"> 
+                <label for="id_email" class=" requiredField">البريد الإلكتروني<span class="asteriskField">*</span> </label> 
+                <div> <input type="email" value="{{profile.email}}" name="email" maxlength="320" class="emailinput form-control" required id="id_email"> </div> 
+            </div> 
+            <div id="div_id_first_name" class="form-group"> 
+                <label for="id_first_name" class=" requiredField">الأسم الأول<span class="asteriskField">*</span> </label>
+                 <div> <input type="text" value="{{profile.first_name}}" name="first_name" class="textinput form-control" required id="id_first_name"> </div>
+                 </div>
+                  <div id="div_id_last_name" class="form-group"> 
+                    <label for="id_last_name" class=" requiredField">الأسم الأخير<span class="asteriskField">*</span> </label> 
+                    <div> <input type="text" value="{{profile.last_name}}" name="last_name" class="textinput form-control" required id="id_last_name"> </div> </div>
+        <input class="btn btn-secondary mb-2 mt-3" style="display: block;" type="submit" value="تعديل">
+        </div>
+    </form>
+
+    <script>
+        document.getElementById("image").addEventListener("change", function(event)
+        {
+            const file = event.target.files[0];
+            if (file){
+                const reader = new FileReader();
+                reader.onload = function(e){
+                    document.getElementById("preview").src = e.target.result;
+                    const base64String = reader.result.split(',')[1];
+                    console.log(base64String);
+                    $("#base64").val(base64String);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+
+
+    </script>
+
+    {% endblock %}
